@@ -2,7 +2,15 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Validator from "validator";
-import { Form, Button, Message } from "semantic-ui-react";
+import {
+  Form,
+  Button,
+  Message,
+  Divider,
+  Header,
+  Icon,
+  Container
+} from "semantic-ui-react";
 import InlineError from "../../messages/InlineError";
 import { Link } from "react-router-dom";
 import { login } from "../../actions/auth";
@@ -28,7 +36,7 @@ class Login extends Component {
       this.setState({ loading: true });
       this.props
         .login(this.state.data)
-        .then(() => this.props.history.push("/dashboard"))
+        .then(() => this.props.history.push("/"))
         .catch(err =>
           this.setState({ errors: err.response.data.errors, loading: false })
         );
@@ -41,15 +49,15 @@ class Login extends Component {
     if (!data.password) errors.password = "Can't be blank";
     return errors;
   };
-  /* submit = data =>
-    this.props.login(data).then(() => this.props.history.push("/dashboard"));
- */
+
   render() {
     const { data, errors, loading } = this.state;
     return (
-      <div>
-        <h1>Login page</h1>
-
+      <Container text>
+        <Header as="h2" icon textAlign="center">
+          <Icon name="sign in" circular />
+          <Header.Content>SIGN IN</Header.Content>
+        </Header>
         <Form onSubmit={this.onSubmit} loading={loading}>
           {errors.global && (
             <Message negative>
@@ -81,10 +89,16 @@ class Login extends Component {
             />
             {errors.password && <InlineError text={errors.password} />}
           </Form.Field>
+          <p>
+            <Link to="/forgot_password">Forgot Password?</Link>
+          </p>
+          <Link to="/signup" className="ui primary button">
+            Register
+          </Link>
           <Button primary>Login</Button>
+          <Divider horizontal>Or</Divider>
         </Form>
-        <Link to="/forgot_password">Forgot Password?</Link>
-      </div>
+      </Container>
     );
   }
 }

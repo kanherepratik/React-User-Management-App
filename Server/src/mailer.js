@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-const from = '"Bookworm" <info@bookworm.com>';
+const from = '"Prediction League" <info@prediction-league.com>';
 
 function setup() {
   return nodemailer.createTransport({
@@ -18,9 +18,9 @@ export function sendConfirmationEmail(user) {
   const email = {
     from,
     to: user.email,
-    subject: "Welcome to Bookworm",
+    subject: "Welcome to Prediction League",
     text: `
-    Welcome to Bookworm. Please, confirm your email.
+    Welcome to Prediction League. Please, confirm your email.
 
     ${user.generateConfirmationUrl()}
     `

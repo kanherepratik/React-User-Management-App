@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import isEmail from "validator/lib/isEmail";
 import InlineError from "../../messages/InlineError";
-import { Form, Button } from "semantic-ui-react";
+import { Form, Button, Header, Icon, Container } from "semantic-ui-react";
 import { signup } from "../../actions/users";
 
 class SignUp extends Component {
@@ -31,7 +31,7 @@ class SignUp extends Component {
       this.setState({ loading: true });
       this.props
         .signup(this.state.data)
-        .then(() => this.props.history.push("/dashboard"))
+        .then(() => this.props.history.push("/"))
         .catch(err =>
           this.setState({ errors: err.response.data.errors, loading: false })
         );
@@ -56,62 +56,67 @@ class SignUp extends Component {
   render() {
     const { data, errors, loading } = this.state;
     return (
-      <Form onSubmit={this.onSubmit} loading={loading}>
-        <h2>Sign Up Page</h2>
-        <Form.Group widths="equal">
-          <Form.Field error={!!errors.name}>
-            <label htmlFor="name">Full name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Name"
-              value={data.name}
-              onChange={this.onChange}
-            />
-            {errors.name && <InlineError text={errors.name} />}
-          </Form.Field>
-          <Form.Field error={!!errors.email}>
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="email@email.com"
-              value={data.email}
-              onChange={this.onChange}
-            />
-            {errors.email && <InlineError text={errors.email} />}
-          </Form.Field>
-        </Form.Group>
-        <Form.Group widths="equal">
-          <Form.Field error={!!errors.password}>
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Make it secure"
-              value={data.password}
-              onChange={this.onChange}
-            />
-            {errors.password && <InlineError text={errors.password} />}
-          </Form.Field>
-          <Form.Field error={!!errors.confirm}>
-            <label htmlFor="confirm">Confirm Password</label>
-            <input
-              type="password"
-              id="confirm"
-              name="confirm"
-              placeholder="Double Check It"
-              value={data.confirm}
-              onChange={this.onChange}
-            />
-            {errors.confirm && <InlineError text={errors.confirm} />}
-          </Form.Field>
-        </Form.Group>
-        <Button primary>Sign Up</Button>
-      </Form>
+      <Container text>
+        <Form onSubmit={this.onSubmit} loading={loading}>
+          <Header as="h2" icon textAlign="center">
+            <Icon name="add user" circular />
+            <Header.Content>Register</Header.Content>
+          </Header>
+          <Form.Group widths="equal">
+            <Form.Field error={!!errors.name}>
+              <label htmlFor="name">Full name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Name"
+                value={data.name}
+                onChange={this.onChange}
+              />
+              {errors.name && <InlineError text={errors.name} />}
+            </Form.Field>
+            <Form.Field error={!!errors.email}>
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="email@email.com"
+                value={data.email}
+                onChange={this.onChange}
+              />
+              {errors.email && <InlineError text={errors.email} />}
+            </Form.Field>
+          </Form.Group>
+          <Form.Group widths="equal">
+            <Form.Field error={!!errors.password}>
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Make it secure"
+                value={data.password}
+                onChange={this.onChange}
+              />
+              {errors.password && <InlineError text={errors.password} />}
+            </Form.Field>
+            <Form.Field error={!!errors.confirm}>
+              <label htmlFor="confirm">Confirm Password</label>
+              <input
+                type="password"
+                id="confirm"
+                name="confirm"
+                placeholder="Double Check It"
+                value={data.confirm}
+                onChange={this.onChange}
+              />
+              {errors.confirm && <InlineError text={errors.confirm} />}
+            </Form.Field>
+          </Form.Group>
+          <Button primary>Create my Account</Button>
+        </Form>
+      </Container>
     );
   }
 }
