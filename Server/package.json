@@ -1,5 +1,5 @@
 {
-  "name": "bookworm-api",
+  "name": "user-management-api",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
